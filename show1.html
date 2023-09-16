@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Viewer</title>
+    <style>
+        /* Your CSS styles for the PDF cards go here */
+        .pdf-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .pdf-info {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="pdfContainer"></div>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+    <script src="fire.js"></script>
+    <script>
+        const storage = firebase.storage();
+        const urlParams = new URLSearchParams(window.location.search);
+        const all = urlParams.get('all');
+        const username = urlParams.get('username');
+        console.log("user is logged in as ", username)
+
+        function createPdfCard(item) {
+            const pdfCard = document.createElement('div');
+            pdfCard.className = 'pdf-card';
+
+            // Extract branch, semester, and subject from the PDF file's path
+            const pathParts = item.fullPath.split('/');
+            const branch = pathParts[0];
+            const semester = pathParts[1];
+            const subject = pathParts[2];
+
+            const pdfInfo = document.createElement('div');
+            pdfInfo.className = 'pdf-info';
+            pdfInfo.textContent = `${branch} > ${semester} > ${subject}`;
+
+            const link = document.createElement('a');
+            link.id = 'pdf';
+            item.getDownloadURL()
+                .then((url) => {
+                    link.href = url;
+                })
+                .catch((error) => {
+                    console.error('Error getting PDF URL:', error);
+                });
+
+            link.target = '_blank';
+            link.textContent = pathParts[pathParts.length - 1]; // Display only the PDF file name
+
+            pdfCard.appendChild(pdfInfo);
+            pdfCard.appendChild(link);
+            return pdfCard;
+        }
+
+        const folderRef = storage.ref().child(all);
+        folderRef.listAll()
+            .then((res) => {
+                const pdfContainer = document.getElementById('pdfContainer');
+                res.items.forEach((item) => {
+                    const pdfCard = createPdfCard(item);
+                    pdfContainer.appendChild(pdfCard);
+                });
+            })
+            .catch((error) => {
+                console.error('Error listing items in the folder:', error);
+            });
+    </script>
+</body>
+</html>

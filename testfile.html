@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        h1 {
+            color: #333333;
+        }
+
+        .card-img-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .card-img-top img {
+            height: 100%;
+            width: auto;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #d32f2f;
+        }
+
+        #semesterSelect,
+        #itsem6 {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .names {
+            padding: 5px;
+            font-weight: bold;
+            font-size: large;
+            margin-bottom: 30px;
+            border: 2px 2px 0px 2px;
+            outline: none;
+            background: transparent;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /* background: linear-gradient(#141e30, #243b55); */
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="card">
+        <h1>Upload Notes</h1>
+        <form>
+            <div>
+                <input type="name" id="names" class="names" name="names" required placeholder="File Name"><br>
+                <input type="file" id="pdfInput" />
+            </div>
+        </form>
+        <div id="pdfContainer"></div>
+
+        <h class="heading"></h>
+
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top">
+                <img src="cse.jpg" alt="Computer Science Image" onclick="selectCard('CSE')" value="cse">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Computer Science</h5>
+            </div>
+        </div>
+
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="it.jpg" alt="Information Technology Image" onclick="selectCard('IT')" value="it">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Information Technology</h5>
+            </div>
+        </div>
+
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="ece.jpg" alt="Electronics and Communications Image" onclick="selectCard('ECE')" value="ece">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Electronics and communications</h5>
+            </div>
+        </div>
+
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="eee.jpg" alt="Electrical Engineering Image" onclick="selectCard('EEE')" value="eee">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Electrical Engineering</h5>
+            </div>
+        </div>
+
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="me.jpg" alt="Electrical Engineering Image" onclick="selectCard('ME')" value="me">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Mechanical Engineering</h5>
+            </div>
+        </div>
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="ce.jpg" alt="Civil Engineering Image" onclick="selectCard('CE')" value="ce">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Civil Engineering</h5>
+            </div>
+        </div>
+        <br>
+
+        <select id="semesterSelect">
+            <option value="" disabled selected>Select Semester</option>
+            <option value="Sem1">Semester 1</option>
+            <option value="Sem2">Semester 2</option>
+            <option value="Sem3">Semester 3</option>
+            <option value="Sem4">Semester 4</option>
+            <option value="Sem5">Semester 5</option>
+            <option value="Sem6">Semester 6</option>
+            <option value="Sem7">Semester 7</option>
+            <option value="Sem8">Semester 8</option>
+        </select>
+        <select id="itsem6">
+            <option value="" disabled selected>Select Semester</option>
+            <option value="ml">Machine Learning</option>
+            <option value="daa">Design analysis and Algorithms</option>
+            <option value="ds">Data Science</option>
+            <option value="dm">Disaster Mitigation</option>
+            <option value="cc">Cloud Computing</option>
+            <option value="nsc">Network Security and Cryptographt</option>
+            <option value="es">Embedded Systems</option>
+        </select>
+        <form>
+            <div>
+                <!-- <input type="name" id="names" class="names" name="names" required placeholder="File Name"><br> -->
+                <br><input type="file" id="pdfInput" />
+            </div>
+        </form>
+
+        <input type="submit" value="Submit" onclick="handleButtonClick()">
+    </div>
+
+
+
+
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+    <script src="fire.js"></script>
+    <script>
+        document.getElementById('pdfInput').addEventListener('change', handleFileSelect, false);
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            uploadFile(file);
+        }
+        function uploadFile(file) {
+
+
+
+
+
+
+            let fname = document.getElementById('names').value;
+            let all = selectCard()
+            console.log(all)
+
+            // // Create a storage reference
+            const storageRef = firebase.storage().ref();
+
+            // // Generate a unique file name for the PDF
+            const fileName = 'cse/' + 'sem6/' + 'ml/' + `${fname}_${file.name}`;
+
+            // // Upload the file to Firebase Storage
+            const uploadTask = storageRef.child(fileName).put(file);
+
+
+
+
+            // Listen for state changes, errors, and completion of the upload
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    // Track upload progress here if needed
+                },
+                (error) => {
+                    // Handle any errors during upload
+                    console.error('Error uploading the file:', error);
+                },
+                () => {
+                    // Handle successful upload completion
+                    console.log('File uploaded successfully!');
+
+                    // Get the download URL of the uploaded file
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        console.log('Download URL:', downloadURL);
+
+                        // Save the download URL to Firebase Database or perform further actions
+                        // ...
+                        // newfile(downloadURL);
+                        // const link = document.createElement('a');
+                        // link.href = downloadURL;
+                        // link.textContent = 'Download PDF';
+                        // document.body.appendChild(link);
+                        // document.getElementsByClassName('.heading').innerHTML=downloadURL;
+                    });
+                }
+            );
+        }
+        function newfile(downloadURL) {
+            newfile(downloadURL);
+            const link = document.createElement('a');
+            link.href = downloadURL;
+            link.textContent = 'Download PDF';
+            document.body.appendChild(link);
+        }
+
+
+    </script>
+
+
+
+</body>
+
+</html>
+
+<script>
+
+    function selectCard(branch) {
+        document.getElementById("semesterSelect").style.display = "block";
+        let fname = document.getElementById('names').value;
+        document.getElementById("semesterSelect").addEventListener("change", semesterSelect);
+        var selectedSemester = this.value;
+        // function semesterSelect() {
+        //     let all;
+        //     var selectedSemester = this.value;
+        //     console.log(selectedSemester)
+        //     if (selectedSemester == 'Sem6' && branch == 'IT') {
+        //         document.getElementById('itsem6').style.display = "block";
+
+
+        //         // document.getElementById("itsem6").addEventListener("change", itsem6)
+        //         // function itsem6() {
+        //         //     subject = itsem6.value;
+        //         //     console.log("Selected value: " + subject);
+        //         //     return subject;
+        //         // };
+
+
+        //         // JavaScript
+        //         var dropdown = document.getElementById("itsem6");
+
+        //         dropdown.addEventListener("change", itsem6)
+        //         function itsem6() {
+        //             var selectedValue = dropdown.value;
+        //             console.log("Selected value: " + selectedValue);
+        //             return selectedValue;
+        //         };
+
+
+        //         let sub1 = itsem6()
+        //         if (typeof sub1 != 'undefined') {
+        //             //var link = "https://example.com/" + branch + "/" + selectedSemester + sub1;
+        //             //console.log(link)
+        //             //console.log(sub1)
+        //             all = branch + ' ' + selectedSemester + ' ' + sub1;
+        //             console.log(all, 'selectedSemester')
+        //             return all;
+        //         }
+        //         //window.location.href = link;
+        //     }
+
+        // }
+
+        // JavaScript
+        var dropdown1 = document.getElementById("semesterSelect");
+        if (selectedSemester == 'Sem6' && branch == 'IT') {
+                document.getElementById('itsem6').style.display = "block";
+                var dropdown2 = document.getElementById("itsem6");
+            }
+        function handleButtonClick() {
+            
+            var selectedValue1 = dropdown1.value;
+            var selectedValue2 = dropdown2.value;
+
+            // Access the selected values and perform desired actions
+            console.log("Dropdown 1 selected value: " + selectedValue1);
+            console.log("Dropdown 2 selected value: " + selectedValue2);
+
+            // Call another function and pass the selected values
+            anotherFunction(selectedValue1, selectedValue2);
+        }
+
+        function anotherFunction(value1, value2) {
+            console.log("Inside anotherFunction");
+            console.log("Value 1: " + value1);
+            console.log("Value 2: " + value2);
+        }
+
+
+        // let all = semesterSelect()
+        // console.log('final all', all)
+        // return all;
+    }
+
+    // function submitForm() {
+    //     var selectedSemester = document.getElementById("semesterSelect").value;
+    //     if (selectedSemester) {
+    //         // Perform additional logic or actions here
+    //         console.log(selectedSemester);
+    //     } else {
+    //         alert("Please select a semester");
+    //     }
+    // }
+
+
+</script>

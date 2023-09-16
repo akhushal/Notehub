@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PDF Viewer</title>
+</head>
+
+<body>
+    <!-- Place to display the PDF -->
+    <div id="pdfContainer">
+        <!-- The PDF will be displayed here -->
+    </div>
+
+    <!-- Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+
+    <script src="fire.js"></script>
+    <!-- Your custom JavaScript code -->
+    <!-- <script>
+        // Get a reference to Firebase Storage
+        const storage = firebase.storage();
+
+        // Replace 'path/to/your/pdf.pdf' with the actual path to your PDF in Firebase Storage
+        const pdfRef = storage.ref().child('IT/Sem6/dm');
+
+        // Get the URL of the PDF file from Firebase Storage
+        pdfRef.getDownloadURL()
+            .then((url) => {
+                // Create an HTML iframe element to display the PDF
+                const pdfContainer = document.getElementById('pdfContainer');
+                const iframe = document.createElement('iframe');
+                iframe.src = url;
+                iframe.width = '100%';
+                iframe.height = '300px';
+                pdfContainer.appendChild(iframe);
+            })
+            .catch((error) => {
+                console.error('Error getting PDF URL:', error);
+            });
+
+
+    </script> -->
+
+    <script>
+        // Initialize Firebase with your project's configuration
+
+        // Get a reference to Firebase Storage
+        const storage = firebase.storage();
+
+        // Replace 'path/to/your/folder' with the actual path to your folder in Firebase Storage
+        const folderRef = storage.ref().child('IT/Sem6/dm');
+
+        // Get all the items (PDF files) in the folder
+        folderRef.listAll()
+            .then((res) => {
+                // Create an HTML iframe for each PDF and display them
+                const pdfContainer = document.getElementById('pdfContainer');
+                res.items.forEach((item) => {
+                    item.getDownloadURL()
+                        .then((url) => {
+                            const iframe = document.createElement('iframe');
+                            iframe.src = url;
+                            iframe.width = '100%';
+                            iframe.height = '500px';
+                            pdfContainer.appendChild(iframe);
+                        })
+                        .catch((error) => {
+                            console.error('Error getting PDF URL:', error);
+                        });
+                });
+            })
+            .catch((error) => {
+                console.error('Error listing items in the folder:', error);
+            });
+
+
+    </script>
+
+
+</body>
+
+</html>

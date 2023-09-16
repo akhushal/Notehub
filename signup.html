@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lstyle.css">
+    <title>Signup</title>
+    <style>
+      p{
+          color: white;
+          font-style: italic;
+      }
+  </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Signup</h2>
+        <form>
+          <div class="user-box">
+            <input type="text" name="" required="" id="username">
+            <label>Username</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="" required="" id="password">
+            <label>Password</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="" required="" id="password1">
+            <label>Confirm Password</label>
+          </div>
+          <p onclick="a()">signin</p>
+          <a href="#" onclick="signup()">Submit</a>
+            <script>
+              function a(){
+                  window.location.href='index.html'
+              }
+            </script>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
+        </form>
+      </div>
+</body>
+</html>
+<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+<script src="fire.js"></script>
+<script src="signup.js"></script>

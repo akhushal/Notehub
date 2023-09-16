@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0%;
+      padding: 0%;
+    }
+
+    .navbar {
+      display: flex;
+      /* float: inline-end; */
+      overflow: auto;
+      padding: 5px;
+      background-color: black;
+    }
+
+    .navbar li {
+      list-style-type: none;
+      font-size: large;
+      font-weight: 500;
+      margin: 5px 15px;
+      color: white;
+    }
+
+    .logdet {
+      display: flex;
+      position: absolute;
+      right: 15px;
+    }
+
+    .login-btn {
+      background-color: #d32f2f;
+      font-weight: bold;
+      padding: 5px;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .b {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+      background-color: #f2f2f2;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      text-align: center;
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    h1 {
+      color: #333333;
+    }
+
+    .card-img-top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      overflow: hidden;
+    }
+
+    .card-img-top img {
+      height: 100%;
+      width: auto;
+    }
+
+    input[type="submit"] {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #f44336;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #d32f2f;
+    }
+
+    #semesterSelect,
+    #itsem6,#mesem6 {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .names {
+      padding: 5px;
+      font-weight: bold;
+      font-size: large;
+      margin-bottom: 30px;
+      border: 2px 2px 0px 2px;
+      outline: none;
+      background: transparent;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      /* background: linear-gradient(#141e30, #243b55); */
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <ul class="navbar">
+        <li onclick="home()">Home</li>
+        <li onclick="uploadhtml()">upload Notes</li>
+        <li onclick="notes()">Markdown</li>
+        <li onclick="contact()">Contact us</li>
+        <script>function contact() {
+          window.location.href = `contact.html?username=${username}`;
+        }</script>
+        <div class="logdet">
+        <li class="username" id="user1">user</li>
+        <button class="login-btn" onclick="redirectToLogin()">Logout</button>
+    </div>
+    </ul>
+</div>
+    <div class="b">
+      <div class="card">
+        <h1>Upload Notes</h1>
+        <form>
+          <div>
+            <input type="name" id="names" class="names" name="names" required placeholder="File Name" /><br />
+            <!-- <input type="file" id="pdfInput" /> -->
+          </div>
+        </form>
+        <div id="pdfContainer"></div>
+
+        <h class="heading"></h>
+
+        <div class="card" style="width: 9rem">
+          <div class="card-img-top">
+            <img src="cse.jpg" alt="Computer Science Image" onclick="selectCard('CSE')" value="cse" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Computer Science</h5>
+          </div>
+        </div>
+
+        <div class="card" style="width: 9rem">
+          <div class="card-img-top" style="background-color: #cccccc; height: 100px">
+            <img src="it.jpg" alt="Information Technology Image" onclick="selectCard('IT')" value="it" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Information Technology</h5>
+          </div>
+        </div>
+
+        <div class="card" style="width: 9rem">
+          <div class="card-img-top" style="background-color: #cccccc; height: 100px">
+            <img src="ece.jpg" alt="Electronics and Communications Image" onclick="selectCard('ECE')" value="ece" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Electronics and communications</h5>
+          </div>
+        </div>
+
+        <div class="card" style="width: 9rem">
+          <div class="card-img-top" style="background-color: #cccccc; height: 100px">
+            <img src="eee.jpg" alt="Electrical Engineering Image" onclick="selectCard('EEE')" value="eee" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Electrical Engineering</h5>
+          </div>
+        </div>
+
+        <div class="card" style="width: 9rem">
+          <div class="card-img-top" style="background-color: #cccccc; height: 100px">
+            <img src="me.jpg" alt="Electrical Engineering Image" onclick="selectCard('ME')" value="me" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Mechanical Engineering</h5>
+          </div>
+        </div>
+        <div class="card" style="width: 9rem">
+          <div class="card-img-top" style="background-color: #cccccc; height: 100px">
+            <img src="ce.jpg" alt="Civil Engineering Image" onclick="selectCard('CE')" value="ce" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Civil Engineering</h5>
+          </div>
+        </div>
+        <br />
+
+        <select id="semesterSelect">
+          <option value="" disabled selected>Select Semester</option>
+          <option value="Sem1">Semester 1</option>
+          <option value="Sem2">Semester 2</option>
+          <option value="Sem3">Semester 3</option>
+          <option value="Sem4">Semester 4</option>
+          <option value="Sem5">Semester 5</option>
+          <option value="Sem6">Semester 6</option>
+          <option value="Sem7">Semester 7</option>
+          <option value="Sem8">Semester 8</option>
+        </select>
+        <select id="itsem6">
+          <option value="" disabled selected>Select Semester</option>
+          <option value="ml">Machine Learning</option>
+          <option value="daa">Design analysis and Algorithms</option>
+          <option value="ds">Data Science</option>
+          <option value="dm">Disaster Mitigation</option>
+          <option value="cc">Cloud Computing</option>
+          <option value="nsc">Network Security and Cryptographt</option>
+          <option value="es">Embedded Systems</option>
+        </select>
+        <select id="mesem6">
+          <option value="" disabled selected>Select Subject</option>
+          <option value="fea">Finite element analysis</option>
+          <option value="md">Mechine Design</option>
+          <option value="pom">Production and operations management</option>
+          <option value="pe">Powerplant Engineering</option>
+          <option value="dm">Disaster Mitigation</option>
+          <option value="mcmt">Metal cutting and metal tools</option>
+        </select><br>
+        <form>
+          <div>
+            <!-- <input type="name" id="names" class="names" name="names" required placeholder="File Name"><br> -->
+            <br /><input type="file" id="pdfInput" />
+          </div>
+        </form>
+
+        <input type="submit" value="Submit" onclick="handleButtonClick()" />
+      </div>
+
+      <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+      <script src="fire.js"></script>
+      <!-- <script>
+      document
+        .getElementById("pdfInput")
+        .addEventListener("change", handleFileSelect, false);
+      function handleFileSelect(event) {
+        const file = event.target.files[0];
+        uploadFile(file);
+      }
+      function uploadFile(file) {
+        let fname = document.getElementById("names").value;
+        let all = selectCard();
+        console.log(all);
+
+        // // Create a storage reference
+        const storageRef = firebase.storage().ref();
+
+        // // Generate a unique file name for the PDF
+        const fileName = "me/" + "sem5/" + "fd/" + `${fname}_${file.name}`;
+
+        // // Upload the file to Firebase Storage
+        const uploadTask = storageRef.child(fileName).put(file);
+
+        // Listen for state changes, errors, and completion of the upload
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            // Track upload progress here if needed
+          },
+          (error) => {
+            // Handle any errors during upload
+            console.error("Error uploading the file:", error);
+          },
+          () => {
+            // Handle successful upload completion
+            console.log("File uploaded successfully!");
+
+            // Get the download URL of the uploaded file
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              console.log("Download URL:", downloadURL);
+
+              // Save the download URL to Firebase Database or perform further actions
+              // ...
+              // newfile(downloadURL);
+              // const link = document.createElement('a');
+              // link.href = downloadURL;
+              // link.textContent = 'Download PDF';
+              // document.body.appendChild(link);
+              // document.getElementsByClassName('.heading').innerHTML=downloadURL;
+            });
+          }
+        );
+      }
+      function newfile(downloadURL) {
+        newfile(downloadURL);
+        const link = document.createElement("a");
+        link.href = downloadURL;
+        link.textContent = "Download PDF";
+        document.body.appendChild(link);
+      }
+    </script> -->
+    </div>
+</body>
+
+</html>
+<script src="crud.js"></script>
+<!-- <script>
+  let subjectValue, selectedValue;
+  function selectCard(branch) {
+    document.getElementById("semesterSelect").style.display = "block";
+    var semester = document.getElementById("semesterSelect");
+
+    semester.addEventListener("change", b);
+    function b() {
+      selectedValue = semester.value;
+      console.log("Selected value: " + selectedValue);
+      console.log("brach name: ", branch);
+      if (selectedValue == "Sem6" && branch == "IT") {
+        console.log("it and sem6");
+        // JavaScript
+        document.getElementById("itsem6").style.display = "block";
+        var subject = document.getElementById("itsem6");
+
+        subject.addEventListener("change", c);
+        let x = 0;
+        function c() {
+          subjectValue = subject.value;
+          console.log("Subject value: " + subjectValue);
+
+          document
+            .getElementById("pdfInput")
+            .addEventListener("change", handleFileSelect, false);
+          function handleFileSelect(event) {
+            const file = event.target.files[0];
+            uploadFile(file);
+          }
+          function uploadFile(file) {
+            let fname = document.getElementById("names").value;
+            let all = selectCard();
+            console.log(all);
+
+            // // Create a storage reference
+            const storageRef = firebase.storage().ref();
+
+            // // Generate a unique file name for the PDF
+            const fileName = `${branch}/` + `${selectedValue}/` + `${subjectValue}/` + `${fname}_${file.name}`;
+
+            // // Upload the file to Firebase Storage
+            const uploadTask = storageRef.child(fileName).put(file);
+
+            // Listen for state changes, errors, and completion of the upload
+            uploadTask.on(
+              "state_changed",
+              (snapshot) => {
+                // Track upload progress here if needed
+              },
+              (error) => {
+                // Handle any errors during upload
+                console.error("Error uploading the file:", error);
+              },
+              () => {
+                // Handle successful upload completion
+                console.log("File uploaded successfully!");
+
+                // Get the download URL of the uploaded file
+                uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                  console.log("Download URL:", downloadURL);
+                  alert(`${fname}`," uploaded successfully")
+                  // Save the download URL to Firebase Database or perform further actions
+                  // ...
+                  // newfile(downloadURL);
+                  // const link = document.createElement('a');
+                  // link.href = downloadURL;
+                  // link.textContent = 'Download PDF';
+                  // document.body.appendChild(link);
+                  // document.getElementsByClassName('.heading').innerHTML=downloadURL;
+                });
+              }
+            );
+          }
+          
+          function newfile(downloadURL) {
+            newfile(downloadURL);
+            const link = document.createElement("a");
+            link.href = downloadURL;
+            link.textContent = "Download PDF";
+            document.body.appendChild(link);
+          }
+
+          return subjectValue;
+        }
+
+        let coutput = c();
+        if (coutput === "ml") console.log("coutput: ", c());
+      }
+    }
+    function handleButtonClick() {
+      console.log("c output ", subjectValue);
+    }
+
+    return branch;
+  }
+  // JavaScript
+
+  // function answer() {
+  //     let branch = selectCard();
+  //     let
+  // }
+</script> -->

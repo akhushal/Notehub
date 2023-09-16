@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Branch and Year Selection</title>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+        }
+         
+        .navbar{
+            display: flex;
+            /* float: inline-end; */
+            overflow: auto;
+            padding: 5px;
+            background-color: black;
+        }
+        .navbar li{
+            list-style-type: none;
+            font-size: large;
+            font-weight: 500;
+            margin: 5px 15px;
+            color: white;
+        }
+        .logdet{
+            display: flex;
+            position: absolute;
+            right: 15px;
+        }
+        .login-btn{
+            background-color: #d32f2f;
+            font-weight: bold;
+            padding: 5px;
+            color: white;
+            border-radius: 5px;
+        }
+        .b {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            background-color: #f2f2f2;
+        }
+
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        h1 {
+            color: #333333;
+        }
+
+        .card-img-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .card-img-top img {
+            height: 100%;
+            width: auto;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #d32f2f;
+        }
+
+        #semesterSelect {
+            margin-top: 20px;
+            display: none;
+        }
+      #itsem6,#mesem6 {
+        margin-top: 20px;
+        display: none;
+      }
+    </style>
+</head>
+<body>
+    <div>
+    <ul class="navbar">
+        <li onclick="home()">Home</li>
+        <li onclick="uploadhtml()">upload Notes</li>
+        <li onclick="notes()">Markdown</li>
+        <li onclick="contact()">Contact us</li>
+        <script>function contact() {
+          window.location.href = `contact.html?username=${username}`;
+        }</script>
+        <div class="logdet">
+        <li class="username" id="user1">user</li>
+        <button class="login-btn" onclick="redirectToLogin()">Logout</button>
+    </div>
+    </ul>
+</div>
+<div class="b">
+    <div class="card">
+        <h1>Select Branch and Semester</h1><br>
+
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top">
+                <img src="cse.jpg" alt="Computer Science Image" onclick="selectCardM('CSE')">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Computer Science</h5>
+            </div>
+        </div>
+
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="it.jpg" alt="Information Technology Image" onclick="selectCardM('IT')">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Information Technology</h5>
+            </div>
+        </div>
+
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="ece.jpg" alt="Electronics and Communications Image" onclick="selectCardM('ECE')">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Electronics and communications</h5>
+            </div>
+        </div>
+
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="eee.jpg" alt="Electrical Engineering Image" onclick="selectCardM('EEE')">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Electrical Engineering</h5>
+            </div>
+        </div>
+
+ <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="me.jpg" alt="Electrical Engineering Image" onclick="selectCardM('ME')">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Mechanical Engineering</h5>
+            </div>
+        </div>
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top" style="background-color: #cccccc; height: 100px;">
+                <img src="ce.jpg" alt="Civil Engineering Image" onclick="selectCardM('CE')">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Civil Engineering</h5>
+            </div>
+        </div>
+
+        <select id="semesterSelect">
+            <option value="" disabled selected>Select Semester</option>
+            <option value="Sem1">Semester 1</option>
+            <option value="Sem2">Semester 2</option>
+            <option value="Sem3">Semester 3</option>
+            <option value="Sem4">Semester 4</option>
+            <option value="Sem5">Semester 5</option>
+            <option value="Sem6">Semester 6</option>
+            <option value="Sem7">Semester 7</option>
+            <option value="Sem8">Semester 8</option>
+        </select>
+        <select id="itsem6">
+            <option value="" disabled selected>Select Subject</option>
+            <option value="ml">Machine Learning</option>
+            <option value="daa">Design analysis and Algorithms</option>
+            <option value="ds">Data Science</option>
+            <option value="dm">Disaster Mitigation</option>
+            <option value="cc">Cloud Computing</option>
+            <option value="nsc">Network Security and Cryptographt</option>
+            <option value="es">Embedded Systems</option>
+          </select>
+          <select id="mesem6">
+            <option value="" disabled selected>Select Subject</option>
+            <option value="fea">Finite element analysis</option>
+            <option value="md">Mechine Design</option>
+            <option value="pom">Production and operations management</option>
+            <option value="pe">Powerplant Engineering</option>
+            <option value="dm">Disaster Mitigation</option>
+            <option value="mcmt">Metal cutting and metal tools</option>
+          </select><br>
+          <input type="submit" value="submit">
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+    <script src="fire.js"></script>
+    <script src="crud.js"></script>
+</div>
+</body>
+</html>

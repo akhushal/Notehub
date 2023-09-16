@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PDF Viewer</title>
+    <style>
+      * {
+        margin: 0%;
+        padding: 0%;
+      }
+
+      .navbar {
+        display: flex;
+        /* float: inline-end; */
+        overflow: auto;
+        padding: 5px;
+        background-color: black;
+      }
+      .navbar li {
+        list-style-type: none;
+        font-size: large;
+        font-weight: 500;
+        margin: 5px 15px;
+        color: white;
+      }
+      .logdet {
+        display: flex;
+        position: absolute;
+        right: 15px;
+      }
+      .login-btn {
+        background-color: #d32f2f;
+        font-weight: bold;
+        padding: 5px;
+        color: white;
+        border-radius: 5px;
+      }
+      .pdf-card {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        background-color: #f9f9f9;
+      }
+
+      .pdf-info {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <ul class="navbar">
+        <li onclick="home()">Home</li>
+        <li onclick="uploadhtml()">upload Notes</li>
+        <li onclick="notes()">Markdown</li>
+        <li onclick="contact()">Contact us</li>
+        <div class="logdet">
+          <li class="username" id="user1">user</li>
+          <button class="login-btn" onclick="redirectToLogin()">Logout</button>
+        </div>
+      </ul>
+    </div>
+    <div id="pdfContainer"></div>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+    <script src="fire.js"></script>
+    <!-- <script src="crud.js"></script> -->
+    <script>
+      const storage = firebase.storage();
+      let a = "IT/Sem6/dm";
+      // const all = sessionStorage.getItem('all');
+      const urlParams = new URLSearchParams(window.location.search);
+      const all = urlParams.get("all");
+      const branch = urlParams.get("branch");
+      const sem = urlParams.get("sem");
+      const sub = urlParams.get("sub");
+      const username = urlParams.get("username");
+      console.log("user is logged in as ", username);
+      document.getElementById("user1").innerHTML = `${username}`;
+      function uploadhtml() {
+        window.location.href = `upload.html?username=${username}`;
+      }
+      function home() {
+        window.location.href = `index2.html?username=${username}`;
+      }
+      function contact() {
+        window.location.href = `contact.html?username=${username}`;
+      }
+      function redirectToLogin() {
+        window.location.replace("index.html");
+      }
+      function notes() {
+        window.location.href = `sticky.html?username=${username}`;
+      }
+
+
+    //   const folderRef = storage.ref().child(all);
+    //   folderRef
+    //     .listAll()
+    //     .then((res) => {
+    //       const pdfContainer = document.getElementById("pdfContainer");
+    //       res.items.forEach((item) => {
+    //         item
+    //           .getDownloadURL()
+    //           .then((url) => {
+    //             const link = document.createElement("a");
+    //             link.id = "pdf";
+    //             link.href = url;
+    //             link.target = "_blank";
+    //             link.textContent = item.name;
+    //             pdfContainer.appendChild(link);
+    //           })
+    //           .catch((error) => {
+    //             console.error("Error getting PDF URL:", error);
+    //           });
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error listing items in the folder:", error);
+    //     });
+
+
+    function createPdfCard(item) {
+            const pdfCard = document.createElement('div');
+            pdfCard.className = 'pdf-card';
+
+            // Extract branch, semester, and subject from the PDF file's path
+            const pathParts = item.fullPath.split('/');
+            const branch = pathParts[0];
+            const semester = pathParts[1];
+            const subject = pathParts[2];
+
+            const pdfInfo = document.createElement('div');
+            pdfInfo.className = 'pdf-info';
+            pdfInfo.textContent = `${branch} > ${semester} > ${subject}`;
+
+            const link = document.createElement('a');
+            link.id = 'pdf';
+            item.getDownloadURL()
+                .then((url) => {
+                    link.href = url;
+                })
+                .catch((error) => {
+                    console.error('Error getting PDF URL:', error);
+                });
+
+            link.target = '_blank';
+            link.textContent = pathParts[pathParts.length - 1]; // Display only the PDF file name
+
+            pdfCard.appendChild(pdfInfo);
+            pdfCard.appendChild(link);
+            return pdfCard;
+        }
+
+        const folderRef = storage.ref().child(all);
+        folderRef.listAll()
+            .then((res) => {
+                const pdfContainer = document.getElementById('pdfContainer');
+                res.items.forEach((item) => {
+                    const pdfCard = createPdfCard(item);
+                    pdfContainer.appendChild(pdfCard);
+                });
+            })
+            .catch((error) => {
+                console.error('Error listing items in the folder:', error);
+            });
+    </script>
+  </body>
+</html>
