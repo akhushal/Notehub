@@ -11,7 +11,7 @@ function login(){
         .ref("login/"+username)
         .on("value",function(snap){
             user = snap.val()
-            console.log(user)    
+        //    console.log(user)    
                 if(user.username==username){
                     if(user.password==password)
                         window.location.href=`index2.html?username=${username}`
